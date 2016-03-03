@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>OUR WORLD</title>
+  <meta name="Around the World" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="index.css">
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <!-- MAPA 
+  ------------------------------------------------------- -->
+ 
+  <script src="/CATCHME/datamaps.world.min.js"></script>
+  <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="//d3js.org/topojson.v1.min.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="index2.css">
+  
+<style>
+
+/* CSS goes here. */
+
+</style>
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    
+    <div class="row">
+      <div id="nav"class="u-pull-right">
+        <ul>
+          <h1> e - Atlas POLSKI </h1>
+        </ul>
+    </div>
+    </div>
+  
+  <div class="row">
+    <div id="nav" class="u-full-width">
+      <ul>
+        <li><a href="uk.html">United Kingdom</a></li>
+        <li><a href="plregiony.html">Polska-regiony</a></li>
+            <!-- <ul>
+            <li><a href="#">Demografia</a></li>
+            <li><a href="#">Wysokości</a></li>
+            </ul> -->
+        <li><a href="polska.html">Polska</a></li>
+        <li><a href="#">O mnie</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="u-full-width">
+      <div class="mapa">
+          <script>
+		var width = 600,
+			height = 900;
+
+		 var projection2 = d3.geo.albers()
+			.center([0, 70])
+			.rotate([-20, 16])
+			.parallels([65, 75])
+			.scale(6000)
+			.translate([width , height/5 ]);
+			
+		var path2 = d3.geo.path()
+			.projection(projection2);
+		var svg2 = d3.select("div").append("svg")
+			.attr("width", "100%")
+			.attr("height", height);
+			
+		d3.json("poland.json", function(error, poland) {
+		  if (error) return console.error(error);
+
+		  svg2.append("path")
+					  .datum(topojson.feature(poland, poland.objects.poland))
+					  .attr("d", path2);
+		  svg2.selectAll(".poland")
+					.data(topojson.feature(poland, poland.objects.poland).features)
+				  .enter().append("path")
+					.attr("class", function(d) { return "subunit " + d.id; })
+					.attr("d", path2);
+					svg2.append("path")
+					.datum(topojson.feature(poland, poland.objects.places_pol))
+					.attr("d", path2)
+					.attr("class", "place");
+
+		});	
+          </script> 
+      </div>
+    </div>
+  </div>
+  </div>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
